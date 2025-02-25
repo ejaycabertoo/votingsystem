@@ -1,0 +1,122 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Admin Overview</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+  </head>
+  <body class="bg-gray-100 flex">
+    
+    <!-- Sidebar -->
+    <aside class="w-64 bg-gray-900 text-white p-4 fixed h-full">
+        <div class="mb-10 text-center mt-6">
+            <img src="{% static 'images/citroscanlogo.png' %}" alt="Logo" class="w-24 h-auto mb-4 mx-auto">
+            <span id="adminEmail" class="block text-white text-sm">admin@example.com</span>
+        </div>
+        <nav>
+            <ul class="space-y-4">
+                <li class="hover:bg-gray-700 rounded-lg p-2">
+                    <a href="{% url 'dashboard' %}" class="flex items-center">
+                        <img src="{% static 'images/overview.png' %}" alt="Overview Icon" class="w-6 h-6 mr-3">
+                        <span>Overview</span>
+                    </a>
+                </li>
+                <li class="hover:bg-gray-700 rounded-lg p-2">
+                    <a href="{% url 'upload_list' %}" class="flex items-center">
+                        <img src="{% static 'images/diseasedata.png' %}" alt="User Upload" class="w-6 h-6 mr-3">
+                        <span>User Upload</span>
+                    </a>
+                </li>
+                <li class="hover:bg-gray-700 rounded-lg p-2">
+                    <a href="{% url 'harvest_history' %}" class="flex items-center">
+                        <img src="{% static 'images/harveststatistics.png' %}" alt="Harvest History" class="w-6 h-6 mr-3">
+                        <span>Harvest History</span>
+                    </a>
+                </li>
+                <li class="hover:bg-gray-700 rounded-lg p-2">
+                    <a href="{% url 'user_accounts' %}" class="flex items-center">
+                        <img src="{% static 'images/profile.png' %}" alt="Users" class="w-6 h-6 mr-3">
+                        <span>Users</span>
+                    </a>
+                </li>
+                <li class="hover:bg-gray-700 rounded-lg p-2">
+                    <a href="{% url 'logout' %}" class="flex items-center">
+                        <img src="{% static 'images/logout1.png' %}" alt="Logout" class="w-6 h-6 mr-3">
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>                                       
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8 ml-64">
+        <div class="max-w-screen-xl mx-auto">
+            <h2 class="text-3xl font-semibold">Admin Overview 👋</h2>
+            <p class="text-gray-600 mb-6">Welcome back! Here's an overview of your platform.</p>
+
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-semibold">Total Users</h3>
+                    <p class="text-4xl font-bold text-blue-600 mt-2">1,230</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-semibold">Total Uploads</h3>
+                    <p class="text-4xl font-bold text-green-600 mt-2">3,567</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-semibold">Harvest Records</h3>
+                    <p class="text-4xl font-bold text-orange-600 mt-2">245</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-semibold">Active Users</h3>
+                    <p class="text-4xl font-bold text-purple-600 mt-2">432</p>
+                </div>
+            </div>
+
+            <!-- Graph/Chart Placeholder -->
+            <div class="mt-8 p-6 bg-white rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold mb-4">Recent Activity</h3>
+                <p class="text-gray-600">Analytics will be displayed here. (Graph placeholder)</p>
+                <div class="h-40 bg-gray-200 rounded-lg mt-4"></div>
+            </div>
+
+            <!-- Recent Uploads Table -->
+            <div class="mt-8 p-6 bg-white rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold mb-4">Recent User Uploads</h3>
+                <table class="table-auto w-full">
+                    <thead class="bg-gray-800 text-white">
+                        <tr>
+                            <th class="p-4 text-left">User</th>
+                            <th class="p-4 text-left">Date</th>
+                            <th class="p-4 text-left">File</th>
+                            <th class="p-4 text-left">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b">
+                            <td class="p-4">John Doe</td>
+                            <td class="p-4">2025-02-18</td>
+                            <td class="p-4">report.pdf</td>
+                            <td class="p-4 text-green-600">Approved</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="p-4">Jane Smith</td>
+                            <td class="p-4">2025-02-17</td>
+                            <td class="p-4">data.csv</td>
+                            <td class="p-4 text-red-600">Rejected</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="p-4">Alice Brown</td>
+                            <td class="p-4">2025-02-16</td>
+                            <td class="p-4">image.jpg</td>
+                            <td class="p-4 text-yellow-600">Pending</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+  </body>
+</html>

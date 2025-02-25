@@ -1,0 +1,245 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login User | Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.10.2/dist/cdn.min.js" defer></script>
+    <style>
+        body {
+            position: relative;
+            min-height: 100vh; /* Full viewport height */
+            overflow: hidden;
+        }
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("{% static 'images/background1.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            filter: blur(2px);
+            z-index: -1;
+        }
+        .custom-rounded {
+            border-radius: 20px;
+        }
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .carousel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none; /* Initially hide all images */
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel img:first-child {
+            display: block; /* Show first image initially */
+        }
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            color: white;
+            z-index: 10;
+            background: rgba(0,0,0,0.5);
+            padding: 10px;
+            cursor: pointer;
+        }
+        .left {
+            left: 10px;
+        }
+        .right {
+            right: 10px;
+        }
+        .transition-transform {
+            transition: transform 0.5s ease-in-out;
+        }
+        .panel-container {
+            display: flex;
+            width: 200%; /* Double the width to accommodate both panels side by side */
+        }
+        .carousel-panel {
+            width: 50%; /* Each panel takes half of the container width */
+            transition: transform 0.5s ease-in-out;
+        }
+        .swap .sign-in-panel {
+            transform: translateX(-100%);
+        }
+        .swap .carousel-panel {
+            transform: translateX(100%);
+        }
+        .sign-in-panel {
+    background-color: rgba(255, 255, 255, 0.15); /* Semi-transparent white */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* For Safari */
+    border-radius: 20px;
+    width: 33.3%;
+    height: auto;
+    padding: 24px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Fallback for browsers that do not support backdrop-filter */
+    @supports not (backdrop-filter: blur(10px)) {
+        background-color: rgba(255, 255, 255, 0.8); /* More opaque for better readability */
+    }
+}
+.panel-container {
+        transition: transform 0.5s ease-in-out;
+    }
+    /* Disable transitions on initial page load */
+    .no-transition {
+        transition: none;
+    }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div x-data="{ showLogin: true }" class="bg-white custom-rounded shadow-lg w-[1000px] h-[550px] flex relative overflow-hidden">
+        <div class="absolute inset-0 flex transition-transform duration-500" :class="showLogin ? 'translate-x-0' : '-translate-x-full'">
+            <div class="w-1/3 h-full flex flex-col justify-center px-6 rounded-lg sign-in-panel">
+                <h2 class="text-[22px] font-semibold text-center text-gray-800 mb-6">USER LOGIN</h2>
+                <form id="loginForm">
+                    <div class="mb-3">
+                        <label class="block text-[12px] text-gray-600 mb-1" for="email">Email</label>
+                        <input type="email" id="email" class="w-full p-[10px] border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300 text-[14px]" required>
+                    </div>
+                    <button type="submit" class="w-full bg-yellow-600 text-white p-[10px] rounded-md text-[13px] hover:bg-yellow-700">Login</button>
+                    <div class="my-[10px]"></div>
+                    <div class="flex flex-row justify-center space-x-2 mx-4 my-5">
+                        <a href="#" @click.prevent="showLogin = false" class="block text-center text-[13px] text-blue-600 hover:text-blue-800">Login as admin</a>
+                    </div>
+                </form>
+            </div>
+            <div class="w-2/3 h-full carousel carousel-panel" id="carousel">
+                <span class="carousel-control left" onclick="moveCarousel(-1, 'carousel')">&#10094;</span>
+                <span class="carousel-control right" onclick="moveCarousel(1, 'carousel')">&#10095;</span>
+                <img src="{% static 'images/1.jpg' %}" alt="Image 1" class="lazyload">
+                <img src="{% static 'images/2.jpg' %}" alt="Image 2" class="lazyload">
+                <img src="{% static 'images/3.jpg' %}" alt="Image 3" class="lazyload">
+                <img src="{% static 'images/4.jpg' %}" alt="Image 4" class="lazyload">
+            </div>
+        </div>
+        <div class="absolute inset-0 flex transition-transform duration-500" :class="showLogin ? 'translate-x-full' : 'translate-x-0'">
+            <div class="w-2/3 h-full carousel carousel-panel" id="carousel2">
+                <span class="carousel-control left" onclick="moveCarousel(-1, 'carousel2')">&#10094;</span>
+                <span class="carousel-control right" onclick="moveCarousel(1, 'carousel2')">&#10095;</span>
+                <img src="{% static 'images/5.jpg' %}" alt="Image 1" class="lazyload">
+                <img src="{% static 'images/6.jpg' %}" alt="Image 2" class="lazyload">
+                <img src="{% static 'images/7.jpg' %}" alt="Image 3" class="lazyload">
+                <img src="{% static 'images/8.jpg' %}" alt="Image 4" class="lazyload">
+            </div>
+            <div class="w-1/3 h-full flex flex-col justify-center px-6 bg-white rounded-lg sign-in-panel">
+                <h2 class="text-[22px] font-semibold text-center text-gray-800 mb-6">ADMIN LOGIN</h2>
+                <form id="registerForm">
+                    <div class="mb-3">
+                        <label class="block text-[12px] text-gray-600 mb-1" for="email">Email</label>
+                        <input type="email" id="email" class="w-full p-[10px] border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300 text-[14px]" required>
+                    </div>
+                    <div class="mb-5">
+                        <label class="block text-[12px] text-gray-600 mb-1" for="password">Password</label>
+                        <input type="password" id="password" class="w-full p-[10px] border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300 text-[14px]" required>
+                    </div>
+                    <button type="submit" class="w-full bg-green-600 text-white p-[10px] rounded-md text-[13px] hover:bg-green-700">Login</button>
+                    <div class="my-[10px]"></div>
+                    <a href="#" @click.prevent="showLogin = true" class="block text-center text-[13px] text-gray-600 hover:text-gray-800">Back to Login</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Function to initialize the carousel by showing the first image
+            function initializeCarousel(carouselId) {
+                const carousel = document.getElementById(carouselId);
+                const images = carousel.querySelectorAll('img');
+                if (images.length > 0) {
+                    images[0].style.display = 'block'; // Ensure the first image is shown initially
+                }
+            }
+        
+            // Function to move the carousel forward or backward
+            function moveCarousel(step, carouselId) {
+                const carousel = document.getElementById(carouselId);
+                const images = carousel.querySelectorAll('img');
+                let currentImageIndex = Array.from(images).findIndex(img => img.style.display === 'block');
+        
+                images[currentImageIndex].style.display = 'none'; // Hide current image
+                currentImageIndex = (currentImageIndex + step + images.length) % images.length;
+                images[currentImageIndex].style.display = 'block'; // Show new image
+            }
+        
+            // Initialize both carousels
+            initializeCarousel('carousel');
+            initializeCarousel('carousel2');
+        
+            // Setup control click handlers for each carousel
+            function setupCarouselControls(carouselId) {
+                const carouselElement = document.getElementById(carouselId);
+                const leftControl = carouselElement.querySelector('.left');
+                const rightControl = carouselElement.querySelector('.right');
+        
+                leftControl.addEventListener('click', function() {
+                    moveCarousel(-1, carouselId);
+                });
+        
+                rightControl.addEventListener('click', function() {
+                    moveCarousel(1, carouselId);
+                });
+            }
+        
+            // Setup controls for both carousels
+            setupCarouselControls('carousel');
+            setupCarouselControls('carousel2');
+        
+            // Setup touch and interval handlers for each carousel
+            ['carousel', 'carousel2'].forEach(carouselId => {
+                const carousel = document.getElementById(carouselId);
+                let startX;
+        
+                carousel.addEventListener('touchstart', e => {
+                    startX = e.touches[0].clientX;
+                });
+        
+                carousel.addEventListener('touchmove', e => {
+                    e.preventDefault(); // Prevent scrolling when touching the slider
+                });
+        
+                carousel.addEventListener('touchend', e => {
+                    const endX = e.changedTouches[0].clientX;
+                    if (startX - endX > 50) {
+                        moveCarousel(1, carouselId); // Swipe left
+                    } else if (startX - endX < -50) {
+                        moveCarousel(-1, carouselId); // Swipe right
+                    }
+                });
+        
+                // Automatically move the carousel every 3 seconds
+                setInterval(() => {
+                    moveCarousel(1, carouselId);
+                }, 3000);
+            });
+        });
+        document.addEventListener("DOMContentLoaded", function() {
+        // Access the main container
+        const mainContainer = document.querySelector('.panel-container');
+
+        // Initially disable transitions to avoid seeing the slide effect on load
+        mainContainer.classList.add('no-transition');
+
+        // Enable transitions after the initial load
+        setTimeout(() => {
+            mainContainer.classList.remove('no-transition');
+        }, 50); // Short delay before applying transitions
+    });
+    </script>
+      
+</body>
+</html>
